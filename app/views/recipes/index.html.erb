@@ -14,6 +14,16 @@
 <div class="container content">
     <h3 class="subtitle">Recipes</h3>
     <div class="row recipe-grid">
+      <% @recipes.each do |recipe| %>
+        <div class="col-xs-6 col-md-4 recipe">
+          <a class="thumbnail" href="/recipes/<%= recipe.id %>" >
+            <img src="<%= recipe.bg_image %>" alt="<%= recipe.title %>">
+            <div class="title-description">
+              <h4 class="title"><%= recipe.title %></h4>
+            </div>
+          </a>
+        </div>
+      <% end %>
     </div>
 </div>
 
