@@ -1,0 +1,402 @@
+/* All Recipes */
+
+/* copied from mealtime.css on 2/8/2014 with jumbotron from add.css */
+
+.jumbotron {
+    background-image:url('http://farm3.staticflickr.com/2703/4079495203_713d43a3e6_o.jpg');
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #a04307;
+    color: #f4f6f8;
+    margin-bottom: 0;
+    padding-top: 75px;
+    padding-bottom: 75px;
+    text-align: center;
+    box-shadow: 0 0 8px #eee;
+}
+
+.logo {
+    margin-top: 0;
+}
+
+.subtitle {
+    margin-bottom: 20px;
+}
+
+/*
+.thumbnail {
+    height: 250px;
+}
+*/
+
+.thumbnail img {
+    width: 100%;
+    height: 240px;
+}
+
+.title-description {
+    background: #383838;
+    color: #f4f6f8;
+    padding: 3px 10px 3px 10px;
+    height: 64px;
+}
+
+.content {
+    margin-top: 50px;
+}
+
+.inset {
+    text-shadow: 1px 1px 0 #222;
+}
+
+.bs-footer {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    margin-top: 100px;
+    color: #777;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+    background-color: #e5e5e5;
+}
+
+/* Recipe */
+
+*, *:before, *:after {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.navbar-brand {
+    vertical-align: top;
+}
+
+.timer-row {
+  font-size: 24px;
+  color: #333;
+  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, .9);
+  padding: 5px 0 5px 0;
+  border: none;
+}
+
+.time {
+    display: inline;
+}
+
+.time small {
+    color: #555555;
+    padding-left: 10px;
+}
+
+.help {
+    color: #999;
+    float: right;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.help:hover {
+    color: #666;
+}
+
+.help:focus {
+    outline: none;
+    color: #666;
+}
+
+.help .glyphicon-question-sign {
+    margin-right: 3px;
+}
+
+.popover-title {
+    font-weight: bold;
+}
+
+code {
+  background: #66afe9;
+  color: white;
+}
+
+.popover-content.paddingless {
+    padding: 0;
+}
+
+.btn-group-vertical > .btn-default {
+    text-align: left;
+    border: none;
+}
+
+.jumbotron {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #222222;
+    color: #f4f6f8;
+    margin-bottom: 0;
+    padding-top: 150px;
+}
+
+.inset {
+    text-shadow: 1px 1px 0 #333;
+}
+
+/* link styling in the jumbotron */
+a {
+  color: #888;
+}
+
+a:visited {
+    color: #aaa;
+    font-style: underline;
+}
+
+a:hover {
+  color: #ddd;
+  text-shadow: 0 0;
+}
+
+#progress-bar-master {
+    border-radius: 0;
+    height: 10px;
+    box-shadow: 0 0 8px #eee;
+    margin-bottom: 0;
+    background-color: rgba(255,255,255,0);
+}
+
+.progress-bar-step {
+  background-color: rgba(255,255,255,.9);
+  border-right: 1px solid #cfcfcf;
+}
+
+.progress-bar-step-playing {
+    background-color: #d9edf7;
+    border-right: none;
+}
+
+.progress-bar-step-playing-current {
+    background-color: #66afe9;
+    border-right: none;
+}
+
+.progress-bar-step-completed {
+    background-color: #f5f5f5;
+    border-right: none;
+}
+
+.progress-bar-step-times-up {
+  background-color: #f2dede;
+  border-right: none;
+}
+
+.progress-bar-step-times-up-current {
+  background-color: #953b39;
+  border-right: none;
+}
+
+.main-content {
+    margin-top: 25px;
+}
+
+.recipe-section-title {
+    padding-left: 15px;
+}
+
+.panel {
+    margin-bottom: 25px;
+    border-radius: 0;
+}
+
+.panel-default {
+    border-color: #f5f5f5;
+}
+
+.panel-heading {
+    border-bottom: 0;
+    border-radius: 0;
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+    overflow: hidden;
+    height: 35px;
+    margin-top: 0;
+    margin-bottom: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.panel-title small {
+    padding-left: 10px;
+    color: #333;
+    font-size: 75%;
+}
+
+.panel-table td {
+    padding: 8px;
+}
+
+.step-controls {
+    position: absolute;
+    padding: 6px 15px;
+    left: 1%;
+    right: 1%;
+}
+
+.step-times {
+    float: right;
+}
+
+.step-elapsed {
+    margin-left: 8px;
+}
+
+.step-ordinal {
+    font-size: 2em;
+    font-weight: lighter;
+    text-align: center;
+    vertical-align: top;
+    width: 4%;
+}
+
+.step-text {
+    width: 96%;
+}
+
+.panel-primary .step-text {
+    font-size: 1.5em;
+}
+
+.panel-danger .step-text {
+    font-size: 1.5em;
+}
+
+.sidebar ul {
+    color: #777777;
+    font-size: 1em;
+    padding-left: 15px;
+    line-height: 1.75;
+}
+
+.sidebar li {
+    padding-left: 1em;
+    text-indent: -1em;
+}
+
+.ingredient-category {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    padding-left: 15px;
+}
+
+/* Show and affix the side nav when space allows it; code sample taken from bootstrap.com */
+@media (min-width: 992px) {
+  .tools-ingredients .nav > .active > ul {
+    display: block;
+  }
+  /* Widen the fixed sidebar */
+  .tools-ingredients.affix,
+  .tools-ingredients.affix-bottom {
+    width: 213px;
+  }
+  .tools-ingredients.affix {
+    position: fixed; /* Undo the static from mobile first approach */
+    top: 72px;
+  }
+  .tools-ingredients.affix-bottom {
+    position: absolute; /* Undo the static from mobile first approach */
+  }
+  .tools-ingredients.affix-bottom .bs-sidenav,
+  .tools-ingredients.affix .bs-sidenav {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 1200px) {
+  /* Widen the fixed sidebar again */
+  .tools-ingredients.affix-bottom,
+  .tools-ingredients.affix {
+    width: 263px;
+  }
+}
+
+@media {
+  .progress .nav > .active > ul {
+    display: block;
+  }
+ 
+  .progress.affix {
+    position: fixed; /* Undo the static from mobile first approach */
+    top: 57px;
+    width: 100%;
+    z-index: 1000;
+  }
+  .progress.affix-bottom {
+    position: absolute; /* Undo the static from mobile first approach */
+  }
+  .progress.affix-bottom,
+  .progress.affix {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+/* panel classes */
+.playing {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.playing-deprecated {
+    border-color: #abd3f3;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(171, 211, 243, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(171, 211, 243, 0.6);
+}
+
+.completed {
+    opacity: 0.5;
+    filter:alpha(opacity=50); /* For IE8 and earlier */
+}
+
+.times-up {
+    border-color: #953b39;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}
+
+/* text styles for classes of content */
+.ingredient {
+  /* font-weight: bold; */
+  border-bottom: 1px dotted;
+}
+
+.tool {
+  font-style: italic;
+  border-bottom: 1px dotted;
+}
+
+.technique {
+
+}
+
+#stop {
+    float: left;
+    visibility: hidden;
+}
+
+.total-elapsed {
+    float: right;
+    margin-top: 8px;
+}
+
+.bs-footer {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    margin-top: 100px;
+    color: #777;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+    background-color: #e5e5e5;
+}
