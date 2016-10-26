@@ -1,26 +1,42 @@
+<% content_for :title do %>
+  Mealtimer | <%= @recipe.title %>
+<% end %>
+
 <!-- navbar div that includes the timer and controls-->
 <nav class="navbar navbar-default navbar-fixed-top timer-row" role="navigation">
-    <div class="container timer hidden-xs">
-        <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-cutlery"></span><span class="glyphicon glyphicon-time"></span> meal&middottimer</a>
-        <div class="btn-group navbar-btn">
-            <button type="button" class="btn btn-default prev disabled" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Previous step"><span class="glyphicon glyphicon-arrow-left"></span></button>
-            <button type="button" class="btn btn-default next disabled" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Next step"><span class="glyphicon glyphicon-arrow-right"></span></button>
-        </div>
-        <h4 class="time">Time: <span class="display">00:00:00</span><small><span class="step"></span></small></h4>
-        <button type="button" class="btn btn-link help" data-toggle="tooltip" data-placement="bottom" title="First time here? Click here to take a tour."><span class="glyphicon glyphicon-question-sign"></span>Help</button>
+  <div class="container timer hidden-xs">
+    <a class="navbar-brand" href="/">
+      <span class="glyphicon glyphicon-cutlery"></span>
+      <span class="glyphicon glyphicon-time"></span>
+      meal&middottimer
+    </a>
+    <div class="btn-group navbar-btn">
+        <button type="button" class="btn btn-default prev disabled" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Previous step">
+          <span class="glyphicon glyphicon-arrow-left"></span>
+        </button>
+        <button type="button" class="btn btn-default next disabled" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Next step">
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
     </div>
-    <div class="container timer visible-xs">
-        <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-cutlery"></span><span class="glyphicon glyphicon-time"></span></a>
-        <div class="btn-group navbar-btn">
-            <button type="button" class="btn btn-default prev disabled" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Previous step"><span class="glyphicon glyphicon-arrow-left"></span></button>
-            <button type="button" class="btn btn-default next disabled" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Next step"><span class="glyphicon glyphicon-arrow-right"></span></button>
-        </div>
-        <h4 class="time"><span class="display">00:00:00</span></h4>
+    <h4 class="time">Time: <span class="display">00:00:00</span><small><span class="step"></span></small></h4>
+    <button type="button" class="btn btn-link help" data-toggle="tooltip" data-placement="bottom" title="First time here? Click here to take a tour."><span class="glyphicon glyphicon-question-sign"></span>Help</button>
+  </div>
+  <div class="container timer visible-xs">
+    <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-cutlery"></span><span class="glyphicon glyphicon-time"></span></a>
+    <div class="btn-group navbar-btn">
+      <button type="button" class="btn btn-default prev disabled" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Previous step">
+        <span class="glyphicon glyphicon-arrow-left"></span>
+      </button>
+      <button type="button" class="btn btn-default next disabled" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Next step">
+        <span class="glyphicon glyphicon-arrow-right"></span>
+      </button>
     </div>
+    <h4 class="time"><span class="display">00:00:00</span></h4>
+  </div>
 </nav>
 
 <!-- Recipe name, description, image, and start button -->
-<div class="jumbotron">
+<div class="recipe jumbotron" style="background-image: url(<%= @recipe.bg_image %>)">
   <div class="container">
     <h1 class="inset title fn"><%= @recipe.title %></h1>
     <h6 class="inset author"><%= @recipe.author %></h6>
@@ -32,62 +48,66 @@
 
 <div class="container">
   <div class="row main-content">
-      <!-- recipe sidebar: total time, yield, ingredients, and tools -->
-      <div class="col-md-3 sidebar">
-          <div class="yield-time" role="complementary">
-              <br><h4>yield</h4>
-              <ul class="yield list-unstyled">
-                  <li><%= @recipe.yield %></li>
-              </ul><br>
-              <h4>time</h4>
-              <ul class="prep-time list-unstyled">
-                  <li><%= @recipe.cook_time %></li>
-              </ul><br>
-              <h4>tools</h4>
-              <ul class="tools list-unstyled">
-              </ul><br>
-          </div>
-          <div class="tools-ingredients" role="complementary">
-                  <h4>ingredients</h4>
-                  <ul class="ingredients list-unstyled">
-                  </ul>
-          </div>
+    <!-- recipe sidebar: total time, yield, ingredients, and tools -->
+    <div class="col-md-3 sidebar">
+      <div class="yield-time" role="complementary">
+        <br>
+        <h4>yield</h4>
+        <ul class="yield list-unstyled">
+          <li><%= @recipe.yield %></li>
+        </ul>
+        <br>
+        <h4>time</h4>
+        <ul class="prep-time list-unstyled">
+          <li><%= @recipe.cook_time %></li>
+        </ul>
+        <br>
+        <h4>tools</h4>
+        <ul class="tools list-unstyled">
+        </ul>
+        <br>
       </div>
+      <div class="tools-ingredients" role="complementary">
+        <h4>ingredients</h4>
+        <ul class="ingredients list-unstyled">
+        </ul>
+      </div>
+    </div>
 
-  <!-- recipe steps -->
-  <div class="col-md-9 steps instructions">
-    <% @steps.each do |step| %>
-      <div class="panel panel-default" data-time="<%= step.time %>" data-passive="passive" id="<%= step.ordinal %>">
-        <div class="panel-heading">
-          <div class="step-controls">
-            <div class="btn-group step-btn">
-              <button type="button" class="btn btn-default btn-xs play disabled">
-                <span class="glyphicon glyphicon-play"></span>
-              </button>
-              <button type="button" class="btn btn-default btn-xs more" data-container="body" data-toggle="popover">
-                <span class="glyphicon glyphicon-chevron-down"></span>
-              </button>
+    <!-- recipe steps -->
+    <div class="col-md-9 steps instructions">
+      <% @steps.each do |step| %>
+        <div class="panel panel-default" data-time="<%= step.time %>" data-passive="passive" id="<%= step.ordinal %>">
+          <div class="panel-heading">
+            <div class="step-controls">
+              <div class="btn-group step-btn">
+                <button type="button" class="btn btn-default btn-xs play disabled">
+                  <span class="glyphicon glyphicon-play"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-xs more" data-container="body" data-toggle="popover">
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+              </div>
+              <span class="step-times">
+                <span class="elapsed small"></span>
+                <span class="divisor small"></span>
+                <span class="total small"><%= step.time %></span>
+              </span>
             </div>
-            <span class="step-times">
-              <span class="elapsed small"></span>
-              <span class="divisor small"></span>
-              <span class="total small"><%= step.time %></span>
-            </span>
           </div>
+          <table class="panel-table">
+            <tr>
+              <tbody>
+                <td class="step-ordinal"><%= step.ordinal %></td>
+                <td class="step-text"><%= step.description %></td>
+              </tbody>
+            </tr>
+          </table>
         </div>
-        <table class="panel-table">
-          <tr>
-            <tbody>
-              <td class="step-ordinal"><%= step.ordinal %></td>
-              <td class="step-text"><%= step.description %></td>
-            </tbody>
-          </tr>
-        </table>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 
-  </div>
   <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-9">
@@ -101,4 +121,3 @@
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/assets/js/bootstrap-tour.js"></script>

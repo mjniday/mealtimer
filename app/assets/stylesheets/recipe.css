@@ -1,64 +1,3 @@
-/* All Recipes */
-
-/* copied from mealtime.css on 2/8/2014 with jumbotron from add.css */
-
-.jumbotron {
-    background-image:url('http://farm3.staticflickr.com/2703/4079495203_713d43a3e6_o.jpg');
-    background-position: top center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: #a04307;
-    color: #f4f6f8;
-    margin-bottom: 0;
-    padding-top: 75px;
-    padding-bottom: 75px;
-    text-align: center;
-    box-shadow: 0 0 8px #eee;
-}
-
-.logo {
-    margin-top: 0;
-}
-
-.subtitle {
-    margin-bottom: 20px;
-}
-
-/*
-.thumbnail {
-    height: 250px;
-}
-*/
-
-.thumbnail img {
-    width: 100%;
-    height: 240px;
-}
-
-.title-description {
-    background: #383838;
-    color: #f4f6f8;
-    padding: 3px 10px 3px 10px;
-    height: 64px;
-}
-
-.content {
-    margin-top: 50px;
-}
-
-.inset {
-    text-shadow: 1px 1px 0 #222;
-}
-
-.bs-footer {
-    padding-top: 80px;
-    padding-bottom: 80px;
-    margin-top: 100px;
-    color: #777;
-    text-align: center;
-    border-top: 1px solid #e5e5e5;
-    background-color: #e5e5e5;
-}
 
 /* Recipe */
 
@@ -127,7 +66,7 @@ code {
     border: none;
 }
 
-.jumbotron {
+.recipe.jumbotron {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -400,3 +339,4 @@ a:hover {
     border-top: 1px solid #e5e5e5;
     background-color: #e5e5e5;
 }
+

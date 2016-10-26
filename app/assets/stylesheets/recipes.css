@@ -1,6 +1,6 @@
 /* copied from mealtime.css on 2/8/2014 with jumbotron from add.css */
 
-.jumbotron {
+.home.jumbotron {
     background-image:url('http://farm3.staticflickr.com/2703/4079495203_713d43a3e6_o.jpg');
     background-position: top center;
     background-repeat: no-repeat;
@@ -21,12 +21,6 @@
 .subtitle {
     margin-bottom: 20px;
 }
-
-/*
-.thumbnail {
-    height: 250px;
-}
-*/
 
 .thumbnail img {
     width: 100%;
