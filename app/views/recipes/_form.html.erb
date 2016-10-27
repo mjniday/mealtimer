@@ -1,0 +1,34 @@
+<%= form_for :recipe, url: recipes_path do |f| %>
+  <form role="form">  
+    <div class="form-group">
+      <label for="recipe-title">Recipe Title</label>
+      <%= f.text_field :title, class: "form-control", placeholder: "Bologna Sandwich" %><br />
+    </div>
+    <div class="form-group">
+      <label for="recipe-description">Description</label>
+      <%= f.text_area :description, class: "form-control", placeholder: "Add a description or overview to your recipe (optional)" %><br />
+    </div>
+    <div class="form-group">
+      <label for="recipe-author">Author</label>
+      <%= f.text_field :author, class: "form-control", placeholder: "The Iron Chef" %><br />
+    </div>
+    <div class="form-group">
+      <label for="recipe-source">Recipe Source</label>
+      <%= f.text_field :source, class: "form-control", placeholder: "yum yum nom nom blog" %><br />
+    </div>
+    <div class="form-group">
+      <label for="recipe-yield">Recipe Yield</label>
+      <%= f.text_field :yield, class: "form-control", placeholder: "5 servings" %><br />
+    </div>
+    <div class="form-group">
+      <label for="title-image">Image URL</label>
+      <%= f.text_field :bg_image, class: "form-control", placeholder: "http://www.deliciousfoods.com" %><br />
+    </div>
+    <div class="form-group">
+      <label for="recipe-cook-time">Total Cook Time</label>
+      <%= f.text_area :cook_time, class: "form-control", placeholder: "5 minutes Prep, \n10 minutes cook" %><br />
+    </div>
+    <hr>
+    <%= f.submit "Save Recipe", :class => "btn btn-default" %>
+  </form>
+<% end %>
