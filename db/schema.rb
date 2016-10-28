@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161027033950) do
+ActiveRecord::Schema.define(version: 20161028031631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,11 @@ ActiveRecord::Schema.define(version: 20161027033950) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "recipes_tools", id: false, force: :cascade do |t|
+    t.integer "recipe_id"
+    t.integer "tool_id"
+  end
+
   create_table "steps", force: :cascade do |t|
     t.integer  "ordinal"
     t.integer  "time"
@@ -46,6 +51,14 @@ ActiveRecord::Schema.define(version: 20161027033950) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["recipe_id"], name: "index_steps_on_recipe_id", using: :btree
+  end
+
+  create_table "tools", force: :cascade do |t|
+    t.string   "quantity"
+    t.string   "size"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
