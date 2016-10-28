@@ -1,0 +1,11 @@
+<%= form_for [@recipe, @step] do |f| %>
+  <form role="form">  
+    <div class="form-group">
+      <label for="step-name">Description</label>
+      <%= f.text_area :description, class: "form-control", placeholder: "First locate where the kitchen is" %><br />
+    </div>
+    <hr>
+    <%= f.submit "Save Step", :class => "btn btn-default" %>
+  </form>
+<% end %>
+

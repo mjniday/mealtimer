@@ -1,0 +1,11 @@
+<%= form_for [@recipe, @ingredient] do |f| %>
+  <form role="form">  
+    <div class="form-group">
+      <label for="ingredient-name">Name</label>
+      <%= f.text_field :name, class: "form-control", placeholder: "Flour" %><br />
+    </div>
+    <hr>
+    <%= f.submit "Save Ingredient", :class => "btn btn-default" %>
+  </form>
+<% end %>
+
