@@ -7,7 +7,8 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
-    3.times {@recipe.steps.build}
+    2.times {@recipe.steps.build}
+    2.times {@recipe.ingredients.build}
   end
 
   def create
@@ -47,6 +48,8 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.require(:recipe).permit(:title,:description,:author,:source,:bg_image,:yield,:cook_time,:steps_attributes => [:id,:ordinal,:description])
+    params.require(:recipe).permit(:title,:description,:author,:source,:bg_image,:yield,:cook_time,
+      :steps_attributes => [:id,:ordinal,:description],
+      :ingredients_attributes => [:id,:quantity,:unit,:comment,:name])
   end
 end

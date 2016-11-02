@@ -29,13 +29,29 @@
       <%= f.text_area :cook_time, class: "form-control", placeholder: "5 minutes Prep, \n10 minutes cook" %><br />
     </div>
     <hr>
-    <div class="form-group" id="step-container">
+    <div class="form-group" id="steps-container">
       <label for="recipe-steps">Create steps below</label>
-      <%= f.fields_for :steps do |ff| %>
-        <%= ff.text_area :description, class: "form-control", placeholder: "Start some water boiling." %><br />
+      <%= f.fields_for :steps do |step| %>
+        <div class="step-block">
+          <%= step.number_field :ordinal, class: "form-control", placeholder: "#" %><br />
+          <%= step.text_area :description, class: "form-control", placeholder: "Start some water boiling." %><br />
+        </div>
       <% end %>
     </div>
     <a href="" id="add-step-button">Add Step</a>
+    <hr>
+    <div class="form-group" id="ingredients-container">
+      <label for="recipe-ingredients">Create ingredients below</label>
+      <%= f.fields_for :ingredients do |ing| %>
+        <div class="ingredient-block">
+          <%= ing.number_field :quantity, class: "form-control", placeholder: "1" %><br />
+          <%= ing.text_field :unit, class: "form-control", placeholder: "pinch, gram, gallon" %><br />
+          <%= ing.text_field :comment, class: "form-control", placeholder: "crushed, minced, chopped" %><br />
+          <%= ing.text_field :name, class: "form-control", placeholder: "Garlic" %><br />
+        </div>
+      <% end %>
+    </div>
+    <a href="" id="add-ingredient-button">Add Ingredient</a>
     <hr>
     <%= f.submit "Save Recipe", :class => "btn btn-default" %>
   </form>
