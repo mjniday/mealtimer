@@ -1,4 +1,4 @@
-<%= form_for :recipe, url: recipes_path do |f| %>
+<%= form_for(recipe) do |f| %>
   <form role="form">  
     <div class="form-group">
       <label for="recipe-title">Recipe Title</label>
@@ -28,6 +28,14 @@
       <label for="recipe-cook-time">Total Cook Time</label>
       <%= f.text_area :cook_time, class: "form-control", placeholder: "5 minutes Prep, \n10 minutes cook" %><br />
     </div>
+    <hr>
+    <div class="form-group" id="step-container">
+      <label for="recipe-steps">Create steps below</label>
+      <%= f.fields_for :steps do |ff| %>
+        <%= ff.text_area :description, class: "form-control", placeholder: "Start some water boiling." %><br />
+      <% end %>
+    </div>
+    <a href="" id="add-step-button">Add Step</a>
     <hr>
     <%= f.submit "Save Recipe", :class => "btn btn-default" %>
   </form>

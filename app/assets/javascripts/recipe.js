@@ -1,6 +1,27 @@
 /*global Tour:true, purl:true*/
 
 $(document).ready(function () {
+
+  // For creating nested forms for Recipes
+  $('#add-step-button').on('click',function(e){
+    e.preventDefault();
+    console.log("hello!");
+    addStepField();
+  });
+
+  var addStepField = function() {
+    var step_container = $('#step-container');
+    var prev_fields = $('#step-container > textarea').length;
+    var next_field_id = prev_fields + 1;
+    var new_textarea = document.createElement('textarea');
+    var step_break = document.createElement('br');
+    new_textarea.name = "recipe[steps_attributes][" + next_field_id + "][description]";
+    new_textarea.className = 'form-control';
+    new_textarea.placeholder = "Start some boiling water."
+    step_container[0].appendChild(new_textarea);
+    step_container[0].appendChild(step_break);
+  };
+
   // var countDown; // counts down the time using setInterval
   var currentStep = 0; // current step in the recipe (zero indexed)
   // var paused;  // assigned boolean value if timer paused (true) or not (false)
