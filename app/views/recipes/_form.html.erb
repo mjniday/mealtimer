@@ -39,6 +39,7 @@
       <% end %>
     </div>
     <a href="" id="add-step-button">Add Step</a>
+
     <hr>
     <div class="form-group" id="ingredients-container">
       <label for="recipe-ingredients">Create ingredients below</label>
@@ -53,6 +54,18 @@
     </div>
     <a href="" id="add-ingredient-button">Add Ingredient</a>
     <hr>
+
+    <div class="field">
+      <%= f.label "Tools:" %><br />
+      <%= f.collection_check_boxes :tool_ids, Tool.all, :id, :name do |b| %>
+        <div class="collection-check-box">
+          <%= b.check_box %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    </div>
+    <hr>
+
     <%= f.submit "Save Recipe", :class => "btn btn-default" %>
   </form>
 <% end %>
