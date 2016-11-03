@@ -41,7 +41,10 @@
     <h1 class="inset title fn"><%= @recipe.title %></h1>
     <h6 class="inset author"><%= @recipe.author %></h6>
     <p class="inset description summary"><%= @recipe.description %></p>
-    <p><button type="button" class="btn btn-primary btn-lg play" id="start">Start &raquo;</button></p>
+    <p>
+      <button type="button" class="btn btn-primary btn-lg play" id="start">Start &raquo;</button>
+      <%= link_to "Edit", edit_recipe_path, :class => "btn btn-default btn-lg pull-right" %>
+    </p>
   </div>
 </div>
 <div class="progress" id="progress-bar-master"></div>
