@@ -258,27 +258,6 @@ a:hover {
   }
 }
 
-@media {
-  .progress .nav > .active > ul {
-    display: block;
-  }
- 
-  .progress.affix {
-    position: fixed; /* Undo the static from mobile first approach */
-    top: 57px;
-    width: 100%;
-    z-index: 1000;
-  }
-  .progress.affix-bottom {
-    position: absolute; /* Undo the static from mobile first approach */
-  }
-  .progress.affix-bottom,
-  .progress.affix {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-}
-
 /* panel classes */
 .playing {
     border-color: #66afe9;
