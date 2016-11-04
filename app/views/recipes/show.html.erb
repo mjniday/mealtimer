@@ -43,7 +43,7 @@
     <p class="inset description summary"><%= @recipe.description %></p>
     <p>
       <button type="button" class="btn btn-primary btn-lg play" id="start">Start &raquo;</button>
-      <% if current_user.admin %>
+      <% if user_signed_in? && current_user.admin %>
         <%= link_to "Edit", edit_recipe_path, :class => "btn btn-default btn-lg pull-right" %>
       <% end %>
     </p>

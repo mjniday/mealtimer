@@ -56,7 +56,7 @@ class RecipesController < ApplicationController
   end
 
   def validate_admin
-    unless current_user.admin
+    unless user_signed_in? && current_user.admin
       redirect_to '/'
     end
   end
