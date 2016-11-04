@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :validate_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @recipes = Recipe.all
@@ -52,5 +53,11 @@ class RecipesController < ApplicationController
       :steps_attributes => [:id,:ordinal,:description],
       :ingredients_attributes => [:id,:quantity,:unit,:comment,:name],
       :tool_ids => [])
+  end
+
+  def validate_admin
+    unless current_user.admin
+      redirect_to '/'
+    end
   end
 end
