@@ -26,12 +26,4 @@ $(document).ready(function () {
     $('.title-description').css('width', imgWidth);
   });
 
-  // get all recipes
-  $.getJSON("app/assets/recipes.json", function(recipes) {
-    var recipe;
-    for (var i = 0, length = recipes.length; i < length; i++) {
-      recipe = recipes[i];
-      buildRecipeDiv(recipe);
-    }
-  });
 });

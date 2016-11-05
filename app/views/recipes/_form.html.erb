@@ -33,7 +33,8 @@
       <label for="recipe-steps">Create steps below</label>
       <%= f.fields_for :steps do |step| %>
         <div class="step-block">
-          <%= step.number_field :ordinal, class: "form-control", placeholder: "#" %><br />
+          <%= step.number_field :ordinal, class: "form-control", placeholder: "Step #" %><br />
+          <%= step.number_field :time, class: "form-control", placeholder: "# milliseconds" %><br />
           <%= step.text_area :description, class: "form-control", placeholder: "Start some water boiling." %><br />
         </div>
       <% end %>
