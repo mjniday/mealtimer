@@ -1,7 +1,7 @@
 /*global Tour:true, purl:true*/
 
 $(document).ready(function () {
-
+  console.log("hello")
   // For creating nested forms for Recipes
   $('#add-step-button').on('click',function(e){
     e.preventDefault();
@@ -86,6 +86,8 @@ $(document).ready(function () {
     ingredient_container[0].appendChild(new_ingredient);
   };
 
+  
+
   // var countDown; // counts down the time using setInterval
   var currentStep = 0; // current step in the recipe (zero indexed)
   // var paused;  // assigned boolean value if timer paused (true) or not (false)
@@ -114,7 +116,7 @@ $(document).ready(function () {
   var $ingredients = $('.ingredients');
 
   // time conversion and rendering functions
-  var convertMS = function (milliseconds) {
+  function convertMS(milliseconds) {
     // converts time into hours, minutes, seconds
     var absMilliseconds = Math.abs(milliseconds);
     var hours = Math.floor(absMilliseconds / 3600000);
@@ -124,13 +126,28 @@ $(document).ready(function () {
     return time;
   };
 
-  var stopWatchTime = function (time) {
+  function stopWatchTime(time) {
     if (time[3] > -1000) {
       return ("0" + time[0]).slice(-2) + ":" + ('0' + time[1]).slice(-2) + ":" + ("0" + time[2]).slice(-2);
     } else {
       return "-" + ("0" + time[0]).slice(-2) + ":" + ('0' + time[1]).slice(-2) + ":" + ("0" + time[2]).slice(-2);
     }
   };
+
+  // rewriting the step time formatting
+  // var allSteps = $('.panel.panel-default');
+  var allSteps = $('.step-times');
+  for(var i = 0;i < allSteps.length;i++) {
+    time = allSteps[i].textContent;
+    // time = allSteps[i].dataset['time'];
+    if (time) {
+        stepTime = stopWatchTime(convertMS(time));
+    } else {
+        stepTime = "--:--:--";
+    }
+    // allSteps[i].childNodes[1].childNodes[1].childNodes[3].childNodes[5].textContent = stepTime
+    allSteps[i].textContent = stepTime
+  }
 
   // load recipe content from JSON
   var buildRecipe = function (recipe) {
@@ -619,17 +636,5 @@ $(document).ready(function () {
 
   //     buildRecipe(recipe);
   // });
-
-  $.get("http://localhost:3000/recipes/1", function(recipe) {
-    console.log(recipe)
-    // var recipe;
-    // for (var i = 0, length = recipes.length; i < length && !recipe; i++) {
-    //     if (recipes[i].id === purl().param('id')) {
-    //         recipe = recipes[i];
-    //     }
-    // }
-
-    buildRecipe(recipe);
-  });
 
 }); // END
