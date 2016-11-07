@@ -1,4 +1,5 @@
-var tour = new Tour({
+$(document).ready(function() {
+  var tour = new Tour({
     onEnd: function () {
       $('#1').removeClass('current').removeClass('times-up').removeClass('panel-primary').removeClass('panel-danger');
     },
@@ -90,4 +91,24 @@ var tour = new Tour({
       title: "Bon Appetit!",
       content: "That's it!  Click <code>Start &raquo;</code> to begin cooking with <strong>meal&middottimer</strong>."
     }
-  ]}).init().start();
+    ]}).init().start();
+
+
+  // click outside popover to dismiss; doesn't work on mobile
+  // attributed to: http://stackoverflow.com/questions/11703093/how-to-dismiss-a-twitter-bootstrap-popover-by-clicking-outside and http://jsfiddle.net/mattdlockyer/C5GBU/2/
+  $('body').on('click', function (event) {
+    $('[data-toggle="popover"]').each(function () {
+      // 'is' for buttons that trigger popups
+      // 'has' for icons within a button that triggers a popup
+      if (!$(this).is(event.target) && $(this).has(event.target).length === 0 && $('.popover').has(event.target).length === 0) {
+        $(this).popover('hide');
+      }
+    });
+  });
+
+  $('.help').tooltip();
+  $('.help').on('click', function () {
+    $(this).tooltip('destroy');
+    tour.restart();
+  });
+});

@@ -1,99 +1,6 @@
 /*global Tour:true, purl:true*/
 
 $(document).ready(function () {
-  // For creating nested forms for Recipes
-  $('#add-step-button').on('click',function(e){
-    e.preventDefault();
-    addStepField();
-  });
-
-  var addStepField = function() {
-    var step_container = $('#steps-container');
-    var prev_fields = $('.step-block').length - 1; // step ids get 0 indexed
-    var next_step_id = prev_fields + 1;
-    var new_step = document.createElement('div');
-    new_step.className = "step-block";
-
-    var new_ordinal = document.createElement('input');
-    var ordinal_break = document.createElement('br');
-    new_ordinal.name = "recipe[steps_attributes][" + next_step_id + "][ordinal]";
-    new_ordinal.type = "number";
-    new_ordinal.className = 'form-control';
-    new_ordinal.placeholder = "#";
-
-    var new_time = document.createElement('input');
-    var time_break = document.createElement('br');
-    new_time.name = "recipe[steps_attributes][" + next_step_id + "][time]";
-    new_time.type = "number";
-    new_time.className = 'form-control';
-    new_time.placeholder = "# milliseconds";
-
-    var new_textarea = document.createElement('textarea');
-    var step_break = document.createElement('br');
-    new_textarea.name = "recipe[steps_attributes][" + next_step_id + "][description]";
-    new_textarea.className = 'form-control';
-    new_textarea.placeholder = "Start some boiling water."
-
-    new_step.appendChild(new_ordinal);
-    new_step.appendChild(ordinal_break);
-    new_step.appendChild(new_time);
-    new_step.appendChild(time_break);
-    new_step.appendChild(new_textarea);
-    new_step.appendChild(step_break);
-    step_container[0].appendChild(new_step);
-  };
-
-  $('#add-ingredient-button').on('click',function(e){
-    e.preventDefault();
-    addIngredientField();
-  });
-
-  var addIngredientField = function() {
-    var ingredient_container = $('#ingredients-container');
-    var prev_fields = $('.ingredient-block').length - 1;
-    var next_ingredient_id = prev_fields + 1;
-    var new_ingredient = document.createElement('div');
-    new_ingredient.className = "ingredient-block";
-
-    var new_quantity = document.createElement('input');
-    var quantity_break = document.createElement('br');
-    new_quantity.name = "recipe[ingredients_attributes][" + next_ingredient_id + "][quantity]";
-    new_quantity.type = "number";
-    new_quantity.className = 'form-control';
-    new_quantity.placeholder = "#";
-
-    var new_unit = document.createElement('input');
-    var unit_break = document.createElement('br');
-    new_unit.name = "recipe[ingredients_attributes][" + next_ingredient_id + "][unit]";
-    new_unit.className = 'form-control';
-    new_unit.placeholder = "pinch, gram, gallon";
-
-    var new_comment = document.createElement('input');
-    var comment_break = document.createElement('br');
-    new_comment.name = "recipe[ingredients_attributes][" + next_ingredient_id + "][comment]";
-    new_comment.className = 'form-control';
-    new_comment.placeholder = "crushed, minced, chopped";
-
-    var new_name = document.createElement('input');
-    var name_break = document.createElement('br');
-    new_name.name = "recipe[ingredients_attributes][" + next_ingredient_id + "][name]";
-    new_name.className = "form-control";
-    new_name.placeholder = 'Garlic';
-
-    new_ingredient.appendChild(new_quantity);
-    new_ingredient.appendChild(quantity_break);
-    new_ingredient.appendChild(new_unit);
-    new_ingredient.appendChild(unit_break);
-    new_ingredient.appendChild(new_comment);
-    new_ingredient.appendChild(comment_break);
-    new_ingredient.appendChild(new_name);
-    new_ingredient.appendChild(name_break);
-
-    ingredient_container[0].appendChild(new_ingredient);
-  };
-
-  
-
   // var countDown; // counts down the time using setInterval
   var currentStep = 0; // current step in the recipe (zero indexed)
   // var paused;  // assigned boolean value if timer paused (true) or not (false)
@@ -114,12 +21,20 @@ $(document).ready(function () {
   var $next = $('.next');
   var $navbar = $('.navbar');
   var $step = $('.step');
-  // var $timerRow = $('.timer-row');
   var $jumbotron = $('.jumbotron');
   var $progress = $('#progress-bar-master');
   var $start = $('#start');
   var $stop = $('#stop');
   var $ingredients = $('.ingredients');
+
+  // affix progress bar
+  $progress.affix({
+      offset: {
+          top: function () {
+              return (this.top = $jumbotron.outerHeight() - $navbar.outerHeight());
+          }
+      }
+  });
 
   // time conversion and rendering functions
   function convertMS(milliseconds) {
@@ -140,104 +55,84 @@ $(document).ready(function () {
     }
   };
 
+  function currentStepCountdown(currentStep, elapsed, stepTime) {
+    var remaining;
+    if (stepTime) {
+        remaining = stopWatchTime(convertMS(stepTime - elapsed));
+    } else {
+        remaining = 'N/A';
+    }
+    $display.text(remaining);
+
+    //currentStepClass
+    if (stepTime && elapsed > stepTime) {
+        $('#' + currentStep).addClass('panel-danger');
+        $('#progress' + currentStep).addClass('progress-bar-step-times-up-current');
+    } else {
+        $('#' + currentStep).addClass('panel-primary');
+        $('#progress' + currentStep).addClass('progress-bar-step-playing-current');
+    }
+    $('#progress' + currentStep).removeClass('progress-bar-step-completed');
+  };
+
   // rewriting the step time formatting
-  // var allSteps = $('.panel.panel-default');
-  var allSteps = $('.step-times');
-  for(var i = 0;i < allSteps.length;i++) {
+  var allSteps = $('.step-times > .total');
+  for(var i = 0; i < allSteps.length; i++) {
     time = allSteps[i].textContent;
-    // time = allSteps[i].dataset['time'];
     if (time) {
         stepTime = stopWatchTime(convertMS(time));
     } else {
         stepTime = "--:--:--";
     }
-    // allSteps[i].childNodes[1].childNodes[1].childNodes[3].childNodes[5].textContent = stepTime
     allSteps[i].textContent = stepTime
   }
 
-  // load recipe content from JSON
-  var buildRecipe = function (recipe) {
+  var buildRecipe = function () {
     var totalTime = 0;
     var numNullSteps = 0; // for inserting null-time steps into the progress bar
+    var recipeSteps = $('.steps > .panel');
+    for (var i = 0; i < recipeSteps.length; i++) {
+      numericStepTime = parseInt(recipeSteps[i].dataset.time);
+      if(numericStepTime) {
+        totalTime += numericStepTime;  
+      }
 
-    // step panels
-    // for (var i = 0, length = recipe.steps.length; i < length; i++) {
-    //   var stepNum = recipe.steps[i].ordinal;
-    //   var stepTime;
-
-    //   var passive;
-    //   if (recipe.steps[i].passive) {
-    //       passive = true;
-    //   } else {
-    //       passive = false;
-    //   }
-
-    //   if (recipe.steps[i].time) {
-    //       stepTime = stopWatchTime(convertMS(recipe.steps[i].time));
-    //   } else {
-    //       stepTime = "--:--:--";
-    //   }
-    //   var stepText = recipe.steps[i].description;
-
-    //   $('.steps').append('<div class="panel panel-default" data-time="' + recipe.steps[i].time +'" data-passive="' + passive + '" id="' + stepNum + '"><div class="panel-heading"><div class="step-controls"><div class="btn-group step-btn"><button type="button" class="btn btn-default btn-xs play disabled"><span class="glyphicon glyphicon-play"></span></button><button type="button" class="btn btn-default btn-xs more" data-container="body" data-toggle="popover"><span class="glyphicon glyphicon-chevron-down"></span></button></div><span class="step-times"><span class="elapsed small"></span><span class="divisor small"></span><span class="total small">' + stepTime + '</span></span></div></div><table class="panel-table"><tr><tbody><td class="step-ordinal">' + stepNum + '</td><td class="step-text">'+ stepText +'</td></tbody></tr></table></div>');
-
-    //   recipeStepTimes.push(recipe.steps[i].time);
-    //   totalTime += recipe.steps[i].time;
     //   elapsedTimes.push(recipe.steps[i].elapsed);
 
-    //   if (!recipe.steps[i].time) {
-    //       numNullSteps++;
-    //   }
-    // }
-
+      if (!numericStepTime) {
+          numNullSteps++;
+      }
+    }
+    
     // progress bar
-    for (i = 0, length = recipe.steps.length; i < length; i++) {
+    for (i = 0; i < recipeSteps.length; i++) {
         var widthNum;
-        if (recipe.steps[i].time === null || recipe.steps[i].time === 0) {
+        numericStepTime = parseInt(recipeSteps[i].dataset.time);
+        if (isNaN(numericStepTime) || numericStepTime === 0) {
             widthNum = 0.5;
         } else {
-            widthNum = recipe.steps[i].time * (100 - numNullSteps * 0.5) / totalTime;
+            widthNum = numericStepTime * (100 - numNullSteps * 0.5) / totalTime;
         }
         var progressBarStep = ('<a href="#' + (i + 1) + '" class="progress-bar progress-bar-step" style="width: ' + widthNum + '%" id="progress' + ( i + 1 ) + '" data-toggle="tooltip" data-placement="bottom" title="Step ' + (i + 1) + '"></a>');
         $progress.append(progressBarStep);
     }
+    console.log(numNullSteps)
     $('.progress-bar-step').tooltip(); // IN PROGRESS
 
     // other page elements
     $display.text(stopWatchTime(convertMS(totalTime)));
-    $jumbotron.css("background-image", "url('" + recipe.bgImage + "')");
-    $('.title').text(recipe.title);
-    // document.title = recipe.title + " | " + document.title;
-    $('.description').html(recipe.description);
-    $('.author').html(recipe.author);
-    $('.yield').append('<li>' + recipe.yield + '</li>');
-    // for (i = 0, length = recipe.time.length; i < length; i++) {
-        $('.prep-time').append('<li>' + recipe.cook_time + '</li>');
-    // }
-    for (i = 0, length = recipe.tools.length; i < length; i++) {
-        $('.tools').append('<li>' + recipe.tools[i] + '</li>');
-    }
-    for (i = 0, length = recipe.ingredients.length; i < length; i++) {
-        if (recipe.ingredients[i].category) {
-            $ingredients.append('<h6>' + recipe.ingredients[i].category + '</h6>');
-            for (var j = 0, length2 = recipe.ingredients[i].ingredients.length; j < length2; j++) {
-                $ingredients.append('<li class="ingredient">' + recipe.ingredients[i].ingredients[j] + '</li>');
-            }
-            $ingredients.append('<br>');
-        } else {
-            $ingredients.append('<li class="ingredient">' + recipe.ingredients[i] + '</li>');
-        }
-
-    // more button fn (add, subtract, reset)
-    var $more = $('.more');
-    $more.popover({
-        position : 'fixed',
-        placement : 'bottom',
-        html : 'true',
-        content : '<div class="btn-group-vertical"><button type="button" class="btn btn-default add"><span class="glyphicon glyphicon-plus"></span> Add a minute</button><button type="button" class="btn btn-default subtract"><span class="glyphicon glyphicon-minus"></span> Subtract a minute</button><button type="button" class="btn btn-default reset"><span class="glyphicon glyphicon-repeat"></span> Reset time</button></div>'
-    }).on('click', function () {
-        $('.popover-content').addClass('paddingless');
-    }) // this dynamic class addition is kind of lame; try to make it better.  can conflict with the tour popovers
+    
+    for (i = 0; i < recipeSteps.length; i++) {
+      // more button fn (add, subtract, reset)
+      var $more = $('.more');
+      $more.popover({
+          position : 'fixed',
+          placement : 'bottom',
+          html : 'true',
+          content : '<div class="btn-group-vertical"><button type="button" class="btn btn-default add"><span class="glyphicon glyphicon-plus"></span> Add a minute</button><button type="button" class="btn btn-default subtract"><span class="glyphicon glyphicon-minus"></span> Subtract a minute</button><button type="button" class="btn btn-default reset"><span class="glyphicon glyphicon-repeat"></span> Reset time</button></div>'
+      }).on('click', function () {
+          $('.popover-content').addClass('paddingless');
+      }) // this dynamic class addition is kind of lame; try to make it better.  can conflict with the tour popovers
 
     }
 
@@ -266,15 +161,6 @@ $(document).ready(function () {
         });
     });
 
-    // affix progress bar
-    $progress.affix({
-        offset: {
-            top: function () {
-                return (this.top = $jumbotron.outerHeight() - $navbar.outerHeight());
-            }
-        }
-    });
-
     // affix sidebar  (BUGGY; WHY DO HEIGHT AND OUTERHEIGHT === 550 WHEN CALCULATED AND 570 IN CHROME DEV TOOLS?)
     var affixSidebar = function () {
         var windowHeight = $(window).height();
@@ -299,18 +185,7 @@ $(document).ready(function () {
     $(window).resize(affixSidebar);
 
   };
-
-  /*
-  //IN PROGERSS - smooth scrolling on click of progress bar pieces
-  $('.progress-bar-step').click(function (ordinal) {
-      $(this).attr('href', ordinal);
-      console.log(ordinal);
-      // smooth scrolling
-      $('html, body').stop().animate({
-          scrollTop: $('#' + ordinal).offset().top - $navbar.outerHeight(true) - $progress.outerHeight()
-      }, 500);
-  });
-  */
+  buildRecipe();
 
   // smooth scrolling
   var smoothScrolling = function () {
@@ -332,26 +207,6 @@ $(document).ready(function () {
     } else {
       $next.removeClass('disabled');
     }
-  };
-
-  var currentStepCountdown = function (currentStep, elapsed, stepTime) {
-      var remaining;
-      if (stepTime) {
-          remaining = stopWatchTime(convertMS(stepTime - elapsed));
-      } else {
-          remaining = 'N/A';
-      }
-      $display.text(remaining);
-
-      //currentStepClass
-      if (stepTime && elapsed > stepTime) {
-          $('#' + currentStep).addClass('panel-danger');
-          $('#progress' + currentStep).addClass('progress-bar-step-times-up-current');
-      } else {
-          $('#' + currentStep).addClass('panel-primary');
-          $('#progress' + currentStep).addClass('progress-bar-step-playing-current');
-      }
-      $('#progress' + currentStep).removeClass('progress-bar-step-completed');
   };
 
   // IN PROGRESS
@@ -536,6 +391,5 @@ $(document).ready(function () {
     $(this).tooltip('destroy');
     tour.restart();
   });
-
 
 }); // END

@@ -88,7 +88,7 @@
     <!-- recipe steps -->
     <div class="col-md-9 steps instructions">
       <% @steps.each do |step| %>
-        <div class="panel panel-default" data-time="<%= step.time %>" data-passive="passive" id="<%= step.ordinal %>">
+        <div class="panel panel-default" data-time="<%= step.time %>" id="<%= step.ordinal %>">
           <div class="panel-heading">
             <div class="step-controls">
               <div class="btn-group step-btn">
