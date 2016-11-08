@@ -1,0 +1,23 @@
+create view searches as
+  select
+    recipes.id as searchable_id,
+    'Recipe' as searchable_type,
+    ingredients.name as term
+    from recipes
+    join ingredients on recipes.id = ingredients.recipe_id
+  
+  union
+  
+  select
+    recipes.id as searchable_id,
+    'Recipe' as searchable_type,
+    recipes.title as term
+    from recipes
+
+  union
+
+  select
+    recipes.id as searchable_id,
+    'Recipe' as searchable_type,
+    recipes.description as term
+    from recipes;

@@ -11,6 +11,13 @@
   </div>
 </div>
 
+<div class="recipe-search">
+  <%= form_tag search_recipes_path, method: "GET" do %>
+    <%= text_field_tag :q, params[:q] %>
+    <%= submit_tag "Search" %>
+<% end %>
+</div>
+
 <div class="container content">
     <h3 class="subtitle">Recipes</h3>
     <div class="row recipe-grid">

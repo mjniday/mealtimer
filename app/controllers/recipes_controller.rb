@@ -42,6 +42,11 @@ class RecipesController < ApplicationController
     @steps = @recipe.steps
   end
 
+  def search
+    @recipes = Recipe.search(params[:q])
+    render 'recipes/index'
+  end
+
   private
 
   def set_recipe

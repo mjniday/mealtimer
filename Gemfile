@@ -29,6 +29,9 @@ gem 'jbuilder', '~> 2.5'
 # Auth
 gem 'devise'
 
+# Full text search
+gem 'textacular'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
