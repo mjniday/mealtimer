@@ -106,17 +106,23 @@ $(document).ready(function () {
     
     // progress bar
     for (i = 0; i < recipeSteps.length; i++) {
-        var widthNum;
-        numericStepTime = parseInt(recipeSteps[i].dataset.time);
-        if (isNaN(numericStepTime) || numericStepTime === 0) {
-            widthNum = 0.5;
-        } else {
-            widthNum = numericStepTime * (100 - numNullSteps * 0.5) / totalTime;
-        }
-        var progressBarStep = ('<a href="#' + (i + 1) + '" class="progress-bar progress-bar-step" style="width: ' + widthNum + '%" id="progress' + ( i + 1 ) + '" data-toggle="tooltip" data-placement="bottom" title="Step ' + (i + 1) + '"></a>');
-        $progress.append(progressBarStep);
+      var widthNum;
+      numericStepTime = parseInt(recipeSteps[i].dataset.time);
+      if (isNaN(numericStepTime) || numericStepTime === 0) {
+          widthNum = 0.5;
+      } else {
+          widthNum = numericStepTime * (100 - numNullSteps * 0.5) / totalTime;
+      }
+      var progressBarStep = ('<a href="#' + (i + 1) + '" class="progress-bar progress-bar-step" style="width: ' + widthNum + '%" id="progress' + ( i + 1 ) + '" data-toggle="tooltip" data-placement="bottom" title="Step ' + (i + 1) + '"></a>');
+      $progress.append(progressBarStep);
     }
-    console.log(numNullSteps)
+
+    // handle case where all progress bar steps are null
+    if(numNullSteps == recipeSteps.length) {
+      widthNum = 100 / numNullSteps;
+      $('.progress-bar-step').css("width",widthNum.toString() + "%");
+    }
+
     $('.progress-bar-step').tooltip(); // IN PROGRESS
 
     // other page elements
