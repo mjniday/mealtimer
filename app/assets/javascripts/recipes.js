@@ -1,4 +1,7 @@
-$(document).ready(function () {
+$(document).ready(function(){
+  $jumbotron = $('.jumbotron');
+  $searchBar = $('.row.search-row');
+
   var buildRecipeDiv = function (recipes) {
     var image = recipes.bgImage;
     var title = recipes.title;
@@ -26,4 +29,11 @@ $(document).ready(function () {
     $('.title-description').css('width', imgWidth);
   });
 
-});
+  $searchBar.affix({
+    offset: {
+      top: function () {
+        return (this.top = $jumbotron.outerHeight());
+      }
+    }
+  });
+})

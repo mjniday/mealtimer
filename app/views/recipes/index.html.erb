@@ -11,11 +11,20 @@
   </div>
 </div>
 
-<div class="recipe-search">
-  <%= form_tag search_recipes_path, method: "GET" do %>
-    <%= text_field_tag :q, params[:q] %>
-    <%= submit_tag "Search" %>
-<% end %>
+<div class="row search-row">
+  <div class="col-lg-12">
+    <div class="recipe-search">
+      <%= form_tag search_recipes_path, method: "GET" do %>
+        <div class="search-logo">
+          <h1 class="inset logo">meal&middottimer</h1>
+        </div>
+        <%= text_field_tag :q, params[:q], class: "search-form", placeholder: "What are you cooking?" %>
+        <span class="search-form-button">
+          <button class="search-button">Search</button>
+        </span>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <div class="container content">

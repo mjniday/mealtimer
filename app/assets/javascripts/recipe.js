@@ -29,11 +29,11 @@ $(document).ready(function () {
 
   // affix progress bar
   $progress.affix({
-      offset: {
-          top: function () {
-              return (this.top = $jumbotron.outerHeight() - $navbar.outerHeight());
-          }
+    offset: {
+      top: function () {
+        return (this.top = $jumbotron.outerHeight() - $navbar.outerHeight());
       }
+    }
   });
 
   // time conversion and rendering functions
@@ -397,5 +397,4 @@ $(document).ready(function () {
     $(this).tooltip('destroy');
     tour.restart();
   });
-
 }); // END
