@@ -5,3 +5,43 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'net/http'
+require 'json'
+
+uri = URI("https://raw.githubusercontent.com/smingers/mealtimer/master/assets/recipes.json")
+f = Net::HTTP.get(uri)
+recipes = JSON.parse(f)
+
+recipes.each do |r|
+  unless r.empty?
+    r_id = r['id'].to_i
+    r_title = r['title']
+    r_description = r['description']
+    r_author = r['author']
+    r_bg_image = r['bgImage']
+    r_yield = r['yield']
+    r_cook_time = r['time'].join(", ")
+
+    begin Recipe.find(r_id).destroy
+      Recipe.create(
+        :id => r_id, 
+        :title => r_title,
+        :description => r_description,
+        :author => r_author,
+        :bg_image => r_bg_image,
+        :yield => r_yield,
+        :cook_time => r_cook_time
+      )
+    rescue
+      Recipe.create(
+        :id => r_id, 
+        :title => r_title,
+        :description => r_description,
+        :author => r_author,
+        :bg_image => r_bg_image,
+        :yield => r_yield,
+        :cook_time => r_cook_time
+      )
+    end
+  end
+end

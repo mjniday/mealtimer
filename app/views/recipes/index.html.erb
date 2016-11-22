@@ -16,7 +16,7 @@
     <div class="recipe-search">
       <%= form_tag search_recipes_path, method: "GET" do %>
         <div class="search-logo">
-          <h1 class="inset logo">meal&middottimer</h1>
+          <a href="/"><h1 class="inset logo">meal&middottimer</h1></a>
         </div>
         <%= text_field_tag :q, params[:q], class: "search-form", placeholder: "What are you cooking?" %>
         <span class="search-form-button">
