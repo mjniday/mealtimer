@@ -39,7 +39,7 @@ class RecipesController < ApplicationController
   def show
     @recipe = Recipe.find(params[:id])
     @ingredients = @recipe.ingredients
-    @steps = @recipe.steps
+    @steps = @recipe.steps.sort_by {|r| r.ordinal}
   end
 
   def search

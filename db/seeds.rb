@@ -21,27 +21,23 @@ recipes.each do |r|
     r_bg_image = r['bgImage']
     r_yield = r['yield']
     r_cook_time = r['time'].join(", ")
+    r_steps = r['steps']
 
-    begin Recipe.find(r_id).destroy
-      Recipe.create(
-        :id => r_id, 
-        :title => r_title,
-        :description => r_description,
-        :author => r_author,
-        :bg_image => r_bg_image,
-        :yield => r_yield,
-        :cook_time => r_cook_time
-      )
-    rescue
-      Recipe.create(
-        :id => r_id, 
-        :title => r_title,
-        :description => r_description,
-        :author => r_author,
-        :bg_image => r_bg_image,
-        :yield => r_yield,
-        :cook_time => r_cook_time
-      )
+    recipe = Recipe.create(
+      # :id => r_id, # Caused the need for `rake database:correct_sequence_ids`
+      :title => r_title,
+      :description => r_description,
+      :author => r_author,
+      :bg_image => r_bg_image,
+      :yield => r_yield,
+      :cook_time => r_cook_time
+    )
+    r_steps.each do |s|
+      s_ordinal = s['ordinal']
+      s_time = s['time']
+      s_description = s['text']
+      new_step = {:ordinal => s_ordinal, :time => s_time, :description => s_description}
+      recipe.steps.create(new_step)
     end
   end
 end
